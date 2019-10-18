@@ -39,7 +39,7 @@ const defaultXml = `<?xml version="1.0"?>
 
 function Top() {
   const [input, setInput] = useState(defaultXml);
-  const [result, setResult] = useState('');
+  const [result, setResult] = useState(null);
 
   const onChange = e => {
     setInput(e.target.value);
@@ -58,7 +58,7 @@ function Top() {
       </Heading>
       <Textarea height="80vh" value={input} onChange={onChange} />
       <Button onClick={onClick}>送信</Button>
-      <pre>{result}</pre>
+      {result && <div>{result}</div>}
     </Stack>
   );
 }
