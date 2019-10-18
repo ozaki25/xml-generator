@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Stack, Heading, Textarea } from '@chakra-ui/core';
+import formatUtils from '../utils/formatUtils';
 
 const defaultXml = `<?xml version="1.0"?>  
 <PurchaseOrder PurchaseOrderNumber="99503" OrderDate="1999-10-20">  
@@ -46,6 +47,8 @@ function Top() {
 
   const onClick = () => {
     console.log(input);
+    const json = formatUtils.xmlToJson(input);
+    console.log(JSON.parse(json));
   };
 
   return (
