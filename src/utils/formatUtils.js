@@ -14,7 +14,9 @@ function xmlToJson(xml) {
 }
 
 function toArray(obj) {
-  return Object.keys(obj).map(key => obj[key]);
+  return Object.entries(obj).map(([key, value]) => ({
+    [key]: typeof value === 'object' ? toArray(value) : value,
+  }));
 }
 
 export default {
