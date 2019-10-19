@@ -10,12 +10,21 @@ function xmlToJson(xml) {
     ignoreCdata: true,
     ignoreDoctype: true,
   });
-  return json;
+  return JSON.parse(json);
 }
 
 function toArray(obj) {
+  // prettier-ignore
   return Object.entries(obj).map(([key, value]) => ({
-    [key]: typeof value === 'object' ? toArray(value) : value,
+    [key]:
+      // objectじゃなかったらそのまか返す
+      typeof value !== 'object' ? value :
+      // keyがなかったら空文字を返す
+      !Object.keys(value).length ? '' :
+      // _texとというkeyを持ってたらその値を返す
+      '_text' in value ? value['_text'] :
+      // そうでなかったらtoArrayの結果を返す
+      toArray(value),
   }));
 }
 
