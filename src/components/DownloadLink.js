@@ -1,21 +1,33 @@
 import React from 'react';
 import { Button, Link } from '@chakra-ui/core';
 
-const formItem = ([label, value]) => `
-<input name="${label}" value="${value}" />
-`;
+function onload() {
+  return `document.querySelector('form').addEventListener('submit', onSubmit)`;
+}
 
-const section = ([label, value]) => `<section>
+function onSubmit(e) {
+  e.preventDefault();
+  console.log(e.target.querySelectorAll('input[type="text"]'));
+}
+
+const formItem = ([label, value]) =>
+  `<input type="text" name="${label}" value="${value}" />`;
+
+const section = ([label, value], parents = '') => `<section>
   <label>${label}</label>
-  ${typeof value === 'object' ? items(value) : formItem([label, value])}
+  ${
+    typeof value === 'object'
+      ? items(value, `${parents}${label}.`)
+      : formItem([`${parents}${label}`, value])
+  }
 </section>
 `;
 
-const items = data =>
+const items = (data, parents = '') =>
   data
     .map(obj =>
       Object.entries(obj)
-        .map(section)
+        .map(([key, value]) => section([key, value], parents))
         .join(''),
     )
     .join('');
@@ -45,7 +57,12 @@ const html = data => `<!DOCTYPE html>
     <h1>XML Generator</h1>
     <form>
       ${items(data)}
+      <input type="submit" value="xmlを出力" />
     </form>
+    <script>
+    ${onSubmit.toString()}
+    ${onload().toString()}
+    </script>
   </body>
 </html>
 `;
