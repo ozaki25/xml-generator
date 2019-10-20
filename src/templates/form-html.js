@@ -38,21 +38,43 @@ function download(data) {
   document.body.removeChild(link);
 }
 
+function space(size) {
+  return [...Array(size)].map(() => ' ').join('');
+}
+
 function xml(obj) {
-  const xmlItem = ([key, value]) =>
-    `<${key}>${typeof value === 'object' ? xmlItems(value) : value}</${key}>`;
-  const xmlItems = obj =>
+  const size = 2;
+
+  const xmlItem = ([key, value], level, last) =>
+    `${space(size * level)}<${key}>
+${
+  typeof value === 'object'
+    ? `${xmlItems(value, level + 1)}`
+    : `${space(size * level + size)}${value}`
+}
+${space(size * level)}</${key}>${
+      last
+        ? ``
+        : `
+`
+    }`;
+
+  const xmlItems = (obj, level) =>
     Object.entries(obj)
-      .map(([key, value]) => xmlItem([key, value]))
+      .map(([key, value], i) =>
+        xmlItem([key, value], level, Object.entries(obj).length - 1 === i),
+      )
       .join('');
+
   return `<?xml version="1.0"?>
-${xmlItems(obj)}`;
+${xmlItems(obj, 0)}`;
 }
 
 const scripts = `
 ${onSubmit.toString()}
 ${setValue.toString()}
 ${download.toString()}
+${space.toString()}
 ${xml.toString()}
 ${onload().toString()}
 `;
