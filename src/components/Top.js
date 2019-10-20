@@ -1,28 +1,16 @@
 import React, { useState } from 'react';
 import { Button, Stack, Heading, Textarea } from '@chakra-ui/core';
+import DownloadLink from './DownloadLink';
 import formatUtils from '../utils/formatUtils';
 
-const defaultXml = `<?xml version="1.0"?>  
-<PurchaseOrder PurchaseOrderNumber="99503" OrderDate="1999-10-20">  
-  <Address Type="Shipping">  
-    <Name>Ellen Adams</Name>  
-    <Street>123 Maple Street</Street>  
-    <City>Mill Valley</City>  
-    <State>CA</State>  
-    <Zip>10999</Zip>  
-    <Country>USA</Country>  
-    <Test />
-  </Address>  
-  <DeliveryNotes>Please leave packages in shed by driveway.</DeliveryNotes>  
-  <Items>  
-    <Item PartNumber="872-AA">  
-      <ProductName>Lawnmower</ProductName>  
-      <Quantity>1</Quantity>  
-      <USPrice>148.95</USPrice>  
-      <Comment>Confirm this is electric</Comment>  
-    </Item>  
-  </Items>  
-</PurchaseOrder>`;
+const defaultXml = `<?xml version="1.0"?>
+<Layer1>
+  <Layer2a>テスト1</Layer2a>
+  <Layer2b>
+    <Layer3a>テスト2</Layer3a>
+  </Layer2b>
+</Layer1>
+`;
 
 function Top() {
   const [input, setInput] = useState(defaultXml);
@@ -46,9 +34,9 @@ function Top() {
       <Heading as="h2" size="lg">
         XMLを入力してください
       </Heading>
-      <Textarea height="80vh" value={input} onChange={onChange} />
-      <Button onClick={onClick}>送信</Button>
-      {result && <div>{JSON.stringify(result)}</div>}
+      <Textarea height="60vh" value={input} onChange={onChange} />
+      <Button onClick={onClick}>入力フォームを生成</Button>
+      {result && <DownloadLink data={result}>ダウンロード</DownloadLink>}
     </Stack>
   );
 }
