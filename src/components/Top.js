@@ -34,7 +34,7 @@ function Top() {
       <Heading as="h2" size="lg">
         XMLを入力してください
       </Heading>
-      <Textarea height="60vh" value={input} onChange={onChange} />
+      <Textarea height="50vh" value={input} onChange={onChange} />
       <Button onClick={onClick}>入力フォームを生成</Button>
       {result && <DownloadLink data={result}>ダウンロード</DownloadLink>}
     </Stack>
