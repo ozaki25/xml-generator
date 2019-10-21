@@ -1,6 +1,8 @@
 const path = require('path');
 const webpack = require('webpack');
 const CopyPlugin = require('copy-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
 
 const DEV_PORT = process.env.PORT || 3000;
 
@@ -32,5 +34,10 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new CopyPlugin([{ from: './public', to: '.' }]),
+    new HtmlWebpackPlugin({
+      template: './public/index.html',
+      inlineSource: '.(js|css)$',
+    }),
+    new HtmlWebpackInlineSourcePlugin(),
   ],
 };
