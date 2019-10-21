@@ -13,7 +13,7 @@
   },
   "scripts": {
     "start": "webpack-dev-server -d",
-    "build": "webpack -p",
+    "build": "webpack -d",
     "test": "jest"
   },
   "eslintConfig": {
