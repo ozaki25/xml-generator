@@ -7,6 +7,7 @@
     "@emotion/core": "^10.0.21",
     "@emotion/styled": "^10.0.17",
     "emotion-theming": "^10.0.19",
+    "hyperapp": "^2.0.3",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "xml-js": "^1.6.11"
