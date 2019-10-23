@@ -1,6 +1,17 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import { h, app } from 'hyperapp';
 import './index.css';
 import App from './App';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+function Hello(state) {
+  return (
+    <main>
+      <h1>{state.text}</h1>
+    </main>
+  );
+}
+
+app({
+  init: { text: 'Hello!!!' },
+  view: Hello,
+  node: document.getElementById('root'),
+});
