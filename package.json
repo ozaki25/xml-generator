@@ -7,8 +7,8 @@
     "xml-js": "^1.6.11"
   },
   "scripts": {
-    "start": "webpack-dev-server -d",
-    "build": "webpack -d",
+    "start": "webpack-dev-server --cnfig-name webpack-dev.config.js -d",
+    "build": "webpack --cnfig-name webpack-build.config.js -d",
     "test": "jest",
     "deploy": "yarn build && cd build && zip index.zip index.html && git init && git add index.zip && git com zip && git push -f git@github.com:ozaki25/xml-generator.git master:zip"
   },
