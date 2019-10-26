@@ -1,6 +1,7 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import { h, app } from 'hyperapp';
 import './index.css';
-import App from './App';
+import state from './state';
+import actions from './actions';
+import Generator from './components/Generator';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+app(state, actions, Generator, document.getElementById('root'));
