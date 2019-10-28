@@ -1,4 +1,5 @@
 import { h } from 'hyperapp';
+import { onInput, onClick } from '../actions';
 import formHtml from '../templates/form-html';
 
 const styles = {
@@ -49,13 +50,12 @@ function generateHtml(data) {
   );
 }
 
-function Generator({ xml, json }, { onChange, onClick }) {
-  console.log({ xml, json }, { onChange, onClick });
+function Generator({ xml, json }) {
   return (
     <div style={styles.container}>
       <h2>XMLを入力してください</h2>
-      <textarea style={styles.textarea} value={xml} onchange={onChange} />
-      <button style={styles.button} onclick={onClick}>
+      <textarea style={styles.textarea} value={xml} onInput={onInput} />
+      <button style={styles.button} onClick={onClick}>
         入力フォームを生成
       </button>
       {json && (
