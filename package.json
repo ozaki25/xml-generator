@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "hyperapp": "^1.2.10",
+    "hyperapp": "^2.0.3",
     "xml-js": "^1.6.11"
   },
   "scripts": {

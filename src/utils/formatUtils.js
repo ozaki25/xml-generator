@@ -1,6 +1,6 @@
 import convert from 'xml-js';
 
-function xmlToJson(xml) {
+const xmlToJson = xml => {
   const json = convert.xml2json(xml, {
     compact: true,
     ignoreDeclaration: true,
@@ -11,9 +11,9 @@ function xmlToJson(xml) {
     ignoreDoctype: true,
   });
   return JSON.parse(json);
-}
+};
 
-function toArray(obj) {
+const toArray = obj => {
   // prettier-ignore
   return Object.entries(obj).map(([key, value]) => ({
     [key]:
@@ -26,7 +26,7 @@ function toArray(obj) {
       // そうでなかったらtoArrayの結果を返す
       toArray(value),
   }));
-}
+};
 
 export default {
   xmlToJson,
