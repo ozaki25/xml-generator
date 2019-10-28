@@ -42,29 +42,26 @@ const styles = {
   },
 };
 
-function generateHtml(data) {
-  return URL.createObjectURL(
+const generateHtml = data =>
+  URL.createObjectURL(
     new Blob([formHtml(data)], {
       type: 'text/html;charset=utf-8;',
     }),
   );
-}
 
-function Generator({ xml, json }) {
-  return (
-    <div style={styles.container}>
-      <h2>XMLを入力してください</h2>
-      <textarea style={styles.textarea} value={xml} onInput={onInput} />
-      <button style={styles.button} onClick={onClick}>
-        入力フォームを生成
-      </button>
-      {json && (
-        <a style={styles.link} download="index.html" href={generateHtml(json)}>
-          ダウンロード
-        </a>
-      )}
-    </div>
-  );
-}
+const Generator = ({ xml, json }) => (
+  <div style={styles.container}>
+    <h2>XMLを入力してください</h2>
+    <textarea style={styles.textarea} value={xml} onInput={onInput} />
+    <button style={styles.button} onClick={onClick}>
+      入力フォームを生成
+    </button>
+    {json && (
+      <a style={styles.link} download="index.html" href={generateHtml(json)}>
+        ダウンロード
+      </a>
+    )}
+  </div>
+);
 
 export default Generator;
