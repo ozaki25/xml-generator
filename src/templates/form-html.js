@@ -5,15 +5,11 @@ function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArra
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
 function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
-function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 `;
 }
 
 function onload() {
-  return `document.querySelector('form').addEventListener('submit', onSubmit)`;
+  return "document.querySelector('form').addEventListener('submit', onSubmit)";
 }
 
 function onSubmit(e) {
@@ -53,14 +49,23 @@ function download(data) {
 }
 
 function space(size) {
-  return [...Array(size)].map(() => ' ').join('');
+  return Array(size + 1).join(' ');
+}
+
+function entries(obj) {
+  var ownProps = Object.keys(obj),
+    i = ownProps.length,
+    resArray = new Array(i);
+  while (i--) resArray[i] = [ownProps[i], obj[ownProps[i]]];
+
+  return resArray;
 }
 
 function xml(obj) {
   const size = 2;
 
-  const xmlItem = ([key, value], level, last) =>
-    `${space(size * level)}<${key}>
+  const xmlItem = function([key, value], level, last) {
+    return `${space(size * level)}<${key}>
 ${
   typeof value === 'object'
     ? `${xmlItems(value, level + 1)}`
@@ -72,13 +77,15 @@ ${space(size * level)}</${key}>${
         : `
 `
     }`;
+  };
 
-  const xmlItems = (obj, level) =>
-    Object.entries(obj)
-      .map(([key, value], i) =>
-        xmlItem([key, value], level, Object.entries(obj).length - 1 === i),
-      )
+  const xmlItems = function(obj, level) {
+    return entries(obj)
+      .map(function([key, value], i) {
+        return xmlItem([key, value], level, entries(obj).length - 1 === i);
+      })
       .join('');
+  };
 
   return `<?xml version="1.0"?>
 ${xmlItems(obj, 0)}`;
@@ -90,6 +97,7 @@ ${onSubmit.toString()}
 ${setValue.toString()}
 ${download.toString()}
 ${space.toString()}
+${entries.toString()}
 ${xml.toString()}
 ${onload().toString()}
 `;
