@@ -132,7 +132,7 @@ const section = ([label, value], parents = '') => `<section>
 const items = (data, parents = '') =>
   data
     .map(obj =>
-      Object.entries(obj)
+      entries(obj)
         .map(([key, value]) => section([key, value], parents))
         .join(''),
     )
