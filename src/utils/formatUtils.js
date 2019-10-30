@@ -1,5 +1,14 @@
 import convert from 'xml-js';
 
+function entries(obj) {
+  var ownProps = Object.keys(obj),
+    i = ownProps.length,
+    resArray = new Array(i);
+  while (i--) resArray[i] = [ownProps[i], obj[ownProps[i]]];
+
+  return resArray;
+}
+
 const xmlToJson = xml => {
   const json = convert.xml2json(xml, {
     compact: true,
@@ -15,7 +24,7 @@ const xmlToJson = xml => {
 
 const toArray = obj => {
   // prettier-ignore
-  return Object.entries(obj).map(([key, value]) => ({
+  return entries(obj).map(([key, value]) => ({
     [key]:
       // objectじゃなかったらそのまか返す
       typeof value !== 'object' ? value :
