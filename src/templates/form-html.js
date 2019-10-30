@@ -16,11 +16,11 @@ function onSubmit(e) {
   e.preventDefault();
   const obj = {};
   const items = e.target.querySelectorAll('input[type="text"]');
-  items.forEach(function(item) {
-    const names = item.name.split('.');
-    const value = item.value;
+  for (let i = 0; i < items.length; i++) {
+    const names = items[i].name.split('.');
+    const value = items[i].value;
     setValue(obj, names, value);
-  });
+  }
   download(obj);
 }
 
