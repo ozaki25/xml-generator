@@ -9,7 +9,19 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 }
 
 function onload() {
-  return "document.querySelector('form').addEventListener('submit', onSubmit)";
+  return `
+if (document.documentMode && navigator.msSaveOrOpenBlob) {
+  window.addEventListener('click', function(e) {
+    var a = e.target;
+    if (!a.hasAttribute('download')) return;
+    e.preventDefault();
+    var filename = a.getAttribute('download');
+    var href = a.getAttribute('href');
+    navigator.msSaveOrOpenBlob(href, filename);
+  });
+}
+document.querySelector('form').addEventListener('submit', onSubmit);
+`;
 }
 
 function onSubmit(e) {
