@@ -36,25 +36,20 @@ function setValue(obj, keys, value) {
 
 function download(data) {
   console.log(data);
-  const link = document.createElement('a');
-  const href = URL.createObjectURL(
-    new Blob([xml(data)], { type: 'text/xml;charset=utf-8;' }),
-  );
-  link.href = href;
-  link.style.display = 'none';
-  link.setAttribute('download', 'index.xml');
-  document.body.appendChild(link);
+  const blob = new Blob([xml(data)], { type: 'text/xml;charset=utf-8;' });
+  const filename = 'index.xml';
 
   if (document.documentMode && navigator.msSaveOrOpenBlob) {
-    e.preventDefault();
-    const filename = e.target.getAttribute('download');
-    const href = e.target.getAttribute('href');
-    navigator.msSaveOrOpenBlob(href, filename);
+    navigator.msSaveOrOpenBlob(blob, filename);
   } else {
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(href);
+    link.style.display = 'none';
+    link.setAttribute('download', filename);
+    document.body.appendChild(link);
     link.click();
+    document.body.removeChild(link);
   }
-
-  document.body.removeChild(link);
 }
 
 function space(size) {
