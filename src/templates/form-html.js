@@ -9,7 +9,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 }
 
 function onload() {
-  return "document.querySelector('form').addEventListener('submit', onSubmit)";
+  return "document.querySelector('form').addEventListener('submit', onSubmit);";
 }
 
 function onSubmit(e) {
@@ -36,16 +36,20 @@ function setValue(obj, keys, value) {
 
 function download(data) {
   console.log(data);
-  const link = document.createElement('a');
-  const href = URL.createObjectURL(
-    new Blob([xml(data)], { type: 'text/xml;charset=utf-8;' }),
-  );
-  link.href = href;
-  link.style.display = 'none';
-  link.setAttribute('download', 'index.xml');
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
+  const blob = new Blob([xml(data)], { type: 'text/xml;charset=utf-8;' });
+  const filename = 'index.xml';
+
+  if (document.documentMode && navigator.msSaveOrOpenBlob) {
+    navigator.msSaveOrOpenBlob(blob, filename);
+  } else {
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(href);
+    link.style.display = 'none';
+    link.setAttribute('download', filename);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
 }
 
 function space(size) {
